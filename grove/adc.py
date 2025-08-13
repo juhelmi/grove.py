@@ -39,6 +39,7 @@ __all__ = [
     "RPI_HAT_PID", "RPI_ZERO_HAT_PID"
 ]
 
+RPI_ADC_ADDRESS   = 0x08
 RPI_HAT_PID      = 0x0004
 RPI_ZERO_HAT_PID = 0x0005
 RPI_HAT_NAME     = 'Grove Base Hat RPi'
@@ -54,7 +55,7 @@ class ADC(object):
     Args:
         address(int): optional, i2c address of the ADC unit, default 0x04
     '''
-    def __init__(self, address = 0x04):
+    def __init__(self, address = RPI_ADC_ADDRESS):
         self.address = address
         self.bus = grove.i2c.Bus()
 
