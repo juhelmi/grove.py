@@ -61,7 +61,7 @@ class TCA9548A(object):
         self.address = address
         self.bus = Bus(i2c)
 
-        print('ID: {}'.format(self.id))
+        #print('ID: {}'.format(self.id))
 
         self._channels = 0
     
