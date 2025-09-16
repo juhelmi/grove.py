@@ -83,7 +83,8 @@ class SlotHelper(object):
         self._slots = maps.get(slot)
         self._slot  = slot
 
-    def is_adapted(self, pin):
+    def is_adapted(self, pin: int) -> bool:
+        """Check if pin belongs to configuration"""
         if not self._slots:
             return False
         if not pin in self._slots.keys():
@@ -110,7 +111,7 @@ class SlotHelper(object):
         for pin, slot in self._slots.items():
             print('{:^5}|{:^5} '.format(pin, slot))
 
-    def argv2pin(self, extra=''):
+    def argv2pin(self, extra:str=''):
         if len(sys.argv) < 2:
             usage = 'Usage: {} <pin>'.format(sys.argv[0])
             usage += extra
@@ -119,6 +120,13 @@ class SlotHelper(object):
             sys.exit(1)
 
         pin = int(sys.argv[1])
+        return self.check_pin_available(pin)
+        # if not self.is_adapted(pin):
+        #     self.list_avail()
+        #     sys.exit(1)
+        # return pin
+    
+    def check_pin_available(self, pin: int) -> int:
         if not self.is_adapted(pin):
             self.list_avail()
             sys.exit(1)
