@@ -42,13 +42,13 @@ class GroveThumbJoystick(object):
     Args:
         channel(int): number of analog pin/channel the sensor connected.
     '''
-    def __init__(self, channel):
+    def __init__(self, channel: int):
         self.channelX = channel
         self.channelY = channel + 1
-        self.adc = ADC()
+        self.adc: ADC = ADC()
 
     @property
-    def value(self):
+    def value(self) -> tuple[int,int]:
         '''
         Get the water strength value
 

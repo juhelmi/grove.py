@@ -18,13 +18,13 @@ import os
 import re
 import io
 
-_SlotsGPIORpi     = { 5:"D5", 12:"PWM", 16:"D16", 18:"D18", 22:"D22", 24:"D24", 26:"D26" }
-_SlotsGPIORpiZero = { 5:"D5", 12:"PWM", 16:"D16"           }
-_SlotsADCRpi      = { 0:"A0",  2:"A2",   4:"A4",   6:"A6"  }
-_SlotsADCRpiZero  = { 0:"A0",  2:"A2",   4:"A4"            }
-_SlotsPWMRpi      = {         12:"PWM",           18:"D18" }
-_SlotsPWMRpiZero  = {         12:"PWM"                     }
-_SlotsNull        = { }
+_SlotsGPIORpi    : dict[int, str] = { 5:"D5", 12:"PWM", 16:"D16", 18:"D18", 22:"D22", 24:"D24", 26:"D26" }
+_SlotsGPIORpiZero: dict[int, str] = { 5:"D5", 12:"PWM", 16:"D16"           }
+_SlotsADCRpi     : dict[int, str] = { 0:"A0",  2:"A2",   4:"A4",   6:"A6"  }
+_SlotsADCRpiZero : dict[int, str] = { 0:"A0",  2:"A2",   4:"A4"            }
+_SlotsPWMRpi     : dict[int, str] = {         12:"PWM",           18:"D18" }
+_SlotsPWMRpiZero : dict[int, str] = {         12:"PWM"                     }
+_SlotsNull       : dict[int, str] = { }
 
 __all__ = ['SlotHelper', 'OverlayHelper']
 
@@ -91,7 +91,7 @@ class SlotHelper(object):
             return False
         return True
 
-    def list_avail(self):
+    def list_avail(self) -> None:
         if not self._slots:
             return
 
@@ -111,7 +111,7 @@ class SlotHelper(object):
         for pin, slot in self._slots.items():
             print('{:^5}|{:^5} '.format(pin, slot))
 
-    def argv2pin(self, extra:str=''):
+    def argv2pin(self, extra:str='') -> int:
         if len(sys.argv) < 2:
             usage = 'Usage: {} <pin>'.format(sys.argv[0])
             usage += extra
