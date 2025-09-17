@@ -55,11 +55,11 @@ class ADC(object):
     Args:
         address(int): optional, i2c address of the ADC unit, default 0x04
     '''
-    def __init__(self, address = RPI_ADC_ADDRESS):
+    def __init__(self, address: int = RPI_ADC_ADDRESS):
         self.address = address
         self.bus = grove.i2c.Bus()
 
-    def read_raw(self, channel):
+    def read_raw(self, channel: int) -> int:
         '''
         Read the raw data of ADC unit, with 12 bits resolution.
 
@@ -69,11 +69,11 @@ class ADC(object):
         Returns:
             (int): the adc result, in [0 - 4095]
         '''
-        addr = 0x10 + channel
+        addr: int = 0x10 + channel
         return self.read_register(addr)
 
     # read input voltage (mV)
-    def read_voltage(self, channel):
+    def read_voltage(self, channel: int) -> int:
         '''
         Read the voltage data of ADC unit.
 
@@ -87,7 +87,7 @@ class ADC(object):
         return self.read_register(addr)
 
     # input voltage / output voltage (%)
-    def read(self, channel):
+    def read(self, channel: int) -> int:
         '''
         Read the ratio between channel input voltage and power voltage (most time it's 3.3V).
 
@@ -101,7 +101,7 @@ class ADC(object):
         return self.read_register(addr)
 
     @property
-    def name(self):
+    def name(self) -> str:
         '''
         Get the Hat name.
 
@@ -113,9 +113,11 @@ class ADC(object):
             return RPI_HAT_NAME
         elif id == RPI_ZERO_HAT_PID:
             return RPI_ZERO_HAT_NAME
+        else:
+            return "UNKNOWN"
 
     @property
-    def version(self):
+    def version(self) -> int:
         '''
         Get the Hat firmware version.
 
@@ -125,7 +127,7 @@ class ADC(object):
         return self.read_register(0x2)
 
     # read 16 bits register
-    def read_register(self, n):
+    def read_register(self, n: int) -> int:
         '''
         Read the ADC Core (through I2C) registers
 
